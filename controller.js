@@ -2,11 +2,17 @@ var app = angular.module("sixModule");
 
 app.controller("routeCtrl", function($scope) {
   $scope.displayWords = [];
-  $scope.wordsArray = ["Hi", "Bye", "Cat", "Dog", "You", "She", "He", "Mom", "Dad", "Food",
-  "Ice-Cream", "Water", "Phone", "Bathroom", "Run", "Poke", "Pinch", "Play", "Hit"];
-  $scope.phrasesArray = [". How are you?", ". I hate you!", ". I don't want to go to sleep!",
-  ". Haha, you're a loser!", ". I am six years old.", ". I want to be a police when I grow up.",
-  ". No way!", ". This is mine!"];
+  $scope.noun = ["Cat", "Dog", "Mom", "Dad", "Food", "Ice-Cream", "Water", "Phone", "Bathroom", "Poo",
+  "Pool"];
+  $scope.verb = ["Pokes", "Pinches", "Plays", "Hits", "Runs"];
+  $scope.adjective = ["Ugly", "Disgusting", "Smelly", "Mean", "Bad", "Good", "Mad", "Red", "Blue",
+  "Green", "Annoying"];
+  $scope.adverb = ["Quickly", "Slowly", "Loudly", "Annoyingly", "Badly"];
+  $scope.preposition = ["in", "on", "at", "under", "with", "near"];
+  $scope.previousForm = 0;
+  $scope.phrasesArray = ["How are you?", "I hate you!", "I don't want to go to sleep!",
+  "Haha, you're a loser!", "I am six years old.", "I want to be a police when I grow up.",
+  "No way!", "This is mine!", "Mom will kill you!", "I'm gonna tell dad!"];
   // $scope.stylesArray = ["style1", "style2", "style3", "style4", "style5"];
 
   $scope.words = function() {
@@ -44,8 +50,51 @@ app.controller("routeCtrl", function($scope) {
     }
 
     if (type == "words") {
-      var randomNum = Math.floor(Math.random()* $scope.wordsArray.length);
-      $scope.displayWords.push({ value: $scope.wordsArray[randomNum], style: decorate});
+
+      if ($scope.previousForm == 0) {
+        var randomNum = Math.floor(Math.random()* $scope.noun.length);
+        $scope.displayWords.push({ value: $scope.noun[randomNum], style: decorate});
+        $scope.previousForm = 1;
+      } else if ($scope.previousForm == 1) {
+        var randomTwo = Math.floor(Math.random()* 2);
+        if (randomTwo == 1) {
+          var randomNum = Math.floor(Math.random()* $scope.adverb.length);
+          $scope.displayWords.push({ value: $scope.adverb[randomNum], style: decorate});
+          $scope.previousForm = 4;
+        }
+        else {
+          var randomNum = Math.floor(Math.random()* $scope.verb.length);
+          $scope.displayWords.push({ value: $scope.verb[randomNum], style: decorate});
+          $scope.previousForm = 2;
+        }
+      } else if ($scope.previousForm == 2) {
+        var randomForm = Math.floor(Math.random()* 4);
+        if (randomForm == 1) {
+          var randomNum = Math.floor(Math.random()* $scope.noun.length);
+          $scope.displayWords.push({ value: $scope.noun[randomNum], style: decorate});
+          $scope.previousForm = 1;
+        } else if (randomForm == 2 || randomForm == 3) {
+          var randomNum = Math.floor(Math.random()* $scope.preposition.length);
+          $scope.displayWords.push({ value: $scope.preposition[randomNum], style: decorate});
+          $scope.previousForm = 5;
+        } else {
+          var randomNum = Math.floor(Math.random()* $scope.adjective.length);
+          $scope.displayWords.push({ value: $scope.adjective[randomNum], style: decorate});
+          $scope.previousForm = 3;
+        }
+      } else if ($scope.previousForm == 3) {
+        var randomNum = Math.floor(Math.random()* $scope.noun.length);
+        $scope.displayWords.push({ value: $scope.noun[randomNum], style: decorate});
+        $scope.previousForm = 1;
+      } else if ($scope.previousForm == 4) {
+        var randomNum = Math.floor(Math.random()* $scope.verb.length);
+        $scope.displayWords.push({ value: $scope.verb[randomNum], style: decorate});
+        $scope.previousForm = 3;
+      } else if ($scope.previousForm == 5){
+        var randomNum = Math.floor(Math.random()* $scope.noun.length);
+        $scope.displayWords.push({ value: $scope.noun[randomNum], style: decorate});
+        $scope.previousForm = 1;
+      }
     }
 
     if (type == "phrases") {
