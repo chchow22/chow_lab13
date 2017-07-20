@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html ng-app = "sixModule">
+  <head>
+    <meta charset="utf-8">
+    <title> 6 Year Old Simulator </title>
+    <link rel = "stylesheet" type = "text/css" href = "style.css"/>
+  </head>
+  <body ng-controller="routeCtrl">
+    <h1> Stuff Six Year Olds Say </h1>
+    <div class = "buttonContainer">
+      <button type = "button" ng-click = "words()" > Words </button>
+      <button type = "button" ng-click = "wordsDec()"> Words With Decoration </button>
+      <button type = "button" ng-click = "moreWords()"> More Words </button>
+      <button type = "button" ng-click = "moreWordsDec()"> More Words With Decoration </button>
+    </div>
+
+    <div class = "wordsContainer">
+      <span ng-repeat = "word in displayWords" ng-class = word.style>
+         {{word.value}} </span>
+    </div>
+    <ng-view> </ng-view>
+
+    <script src = "https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"> </script>
+    <script src = "https://code.angularjs.org/1.6.4/angular-route.js"> </script>
+    <script src = "module.js"> </script>
+    <script src = "config.js"> </script>
+    <script src = "controller.js"> </script>
+  </body>
+</html>
